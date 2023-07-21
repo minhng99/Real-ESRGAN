@@ -148,8 +148,8 @@ class Writer:
                              framerate=fps).output(
                                  audio,
                                  video_save_path,
-                                 pix_fmt='yuv420p10le',
-                                 vcodec='libx265', vf='deband=range=14:blur=false', crf='18', **{'x265-params': 'profile=main10'},
+                                 pix_fmt='yuv422p10le',
+                                 vcodec='libx265', crf='10', **{'x265-params': 'profile=main10'}, preset='slow', tune='animation',
                                  loglevel='error',
                                  acodec='copy').overwrite_output().run_async(
                                      pipe_stdin=True, pipe_stdout=True, cmd=args.ffmpeg_bin))
@@ -157,7 +157,7 @@ class Writer:
             self.stream_writer = (
                 ffmpeg.input('pipe:', format='rawvideo', pix_fmt='bgr24', s=f'{out_width}x{out_height}',
                              framerate=fps).output(
-                                 video_save_path, pix_fmt='yuv420p10le', vcodec='libx265', vf='deband=range=14:blur=false', crf='18', **{'x265-params': 'profile=main10'},
+                                 video_save_path, pix_fmt='yuv422p10le', vcodec='libx265', crf='10', **{'x265-params': 'profile=main10'}, preset='slow', tune='animation',
                                  loglevel='error').overwrite_output().run_async(
                                      pipe_stdin=True, pipe_stdout=True, cmd=args.ffmpeg_bin))
 
